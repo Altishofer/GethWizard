@@ -19,20 +19,6 @@ The instructions below will guide you on how to set up and run the project local
 - Newly generated addresses and primary keys with each deployment
 - provides many templates for oracle server and external client
 
-## Interaction & Debugging
-- see app.py in /oracle and external_service.py to see structure of requests
-- Remix and Metamask
-  - set url of new blockchain on Metamask: http://localhost:8545
-  - call http://localhost:8081/faucet to load any wallet-address with tokens
-  - Set advanced compiler configurations on remix >> EMV version >> Paris
-  - Compile chaincode.sol with compiler: 0.8.22
-  - call http://localhost:8081/getContract to get the randomly generated address
-  - insert address into remix to deply compiled contract at address
-- Postman
-  - remote-procedure-calls (rpc) via http://localhost:8545
-  - representational state transfer (rest) via http://localhost:8081
-
-
 ## Prerequisites
 
 Before getting started, make sure you have the following prerequisites:
@@ -77,3 +63,19 @@ Follow these steps to set up the project:
    ```shell
    python3 external_service.py
    ```
+
+## Interaction & Debugging
+- see app.py in /oracle and external_service.py to see detailed structure of requests
+- Metamask
+  - Add new blockchain blockchain on Metamask by url: http://localhost:8545
+  - call http://localhost:8081/faucet with body {"address":<hexAddress>} to load any wallet-address with tokens
+- Remix
+  - Connect Metamask
+  - Set advanced compiler configurations >> EMV version >> Paris
+  - Compile chaincode.sol with compiler: 0.8.22
+  - call http://localhost:8081/getContract to get the address of the deployed contract
+  - provide remix with the contract's address to interact
+- Postman
+  - remote-procedure-calls (rpc) via http://localhost:8545
+  - representational state transfer (rest) via http://localhost:8081
+
