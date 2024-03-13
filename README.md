@@ -23,8 +23,8 @@ The instructions below will guide you on how to set up and run the project local
 
 Before getting started, make sure you have the following prerequisites:
 
-- [Docker-Desktop](https://docs.docker.com/desktop/release-notes/#4260)
-- [Python3.11](https://www.python.org/downloads/release/python-3114/)
+- [Docker-Desktop V4.26.0](https://docs.docker.com/desktop/release-notes/#4260) 
+- [Python V3.11](https://www.python.org/downloads/release/python-3114/)
 
 
 ## Installation
@@ -56,12 +56,12 @@ Follow these steps to set up the project:
 7. Start the blockchain:
 
    ```shell
-   python3 deploy_blockchain.py
+   python3 main
    ```
 
 8. Simulate an external service interacting with the chaincode 🎉
    ```shell
-   python3 external_service.py
+   python3 external_call_template.py
    ```
 
 ## Interaction & Debugging
