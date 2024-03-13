@@ -1,0 +1,10 @@
+# Flask Framework
+Flask~=3.0.2
+
+# geth
+py-solc-x
+
+# very important bug fixed in .1
+web3==6.15.1
+eth-account
+requests~=2.31.0
