@@ -12,10 +12,10 @@ The instructions below will guide you on how to set up and run the project local
 
 - Simple generation of docker-compose.yml
 - Deploys by default
-  - 1 bootnode
-  - 1 oracle
-  - 3 validator nodes
-  - 1 rpc - node
+  - one bootnode
+  - one oracle (rest api)
+  - three validator nodes (PoA)
+  - one non-validator node (rpc api)
 - Newly generated addresses and primary keys with each deployment
 - provides many templates for oracle server and external client
 
