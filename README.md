@@ -16,8 +16,9 @@ The instructions below will guide you on how to set up and run the project local
   - one oracle (rest api)
   - three validator nodes (PoA)
   - one non-validator node (rpc api)
-- Newly generated addresses and primary keys with each deployment
-- provides many templates for oracle server and external client
+- Randomly generated accounts(pk, address, password) with each deployment
+- Randomly generated ip-addresses and ports (for nodes without API)
+- Many templates for oracle and external clients
 
 ## Prerequisites
 
