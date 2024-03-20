@@ -32,15 +32,6 @@ class Geth:
         self.__export_config()
         self.__boot_blockchain()
 
-    def __get_unreserved_socket(self):
-        for _ in range(100):
-            ip = random.randint(10, 254)
-            port = random.randint(30310, 30330)
-            if (ip, port) not in self.__reserved_sockets:
-                self.__reserved_sockets.append((ip, port))
-                return ip, port
-        raise Exception("Finding unreserved socket address failed")
-
     def __setup_dir(self) -> None:
         if not os.path.exists(self.__config_dir):
             os.makedirs(self.__config_dir, exist_ok=True)
@@ -51,9 +42,16 @@ class Geth:
         source = os.path.join(self.__input_dir, "chaincode", "chaincode.sol")
         shutil.copy(source, os.path.join(self.__config_dir, "chaincode.sol"))
 
-        # self.__copy_dir("chaincode")
-        # self.__copy_dir("oracle")
-        # self.__copy_dir("geth")
+    def __get_unreserved_socket(self):
+        for _ in range(100):
+            ip = random.randint(10, 254)
+            port = random.randint(30310, 30330)
+            reserved_ip = [socket[0] for socket in self.__reserved_sockets]
+            reserved_ports = [socket[1] for socket in self.__reserved_sockets]
+            if ip not in reserved_ip and port not in reserved_ports:
+                self.__reserved_sockets.append((ip, port))
+                return ip, port
+        raise Exception("Finding unreserved socket address failed")
 
     def __copy_dir(self, source):
         curr_path = os.path.dirname(os.path.abspath(__file__))
