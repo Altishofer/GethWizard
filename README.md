@@ -71,7 +71,6 @@ Follow these steps to set up the project:
 
    ```shell
    python blockchain_deployer.py
-   
    ```
 - ✔️ Network chainnet <span style="color:green">created</span>
 - ✔️ Container boot <span style="color:green">started</span>
