@@ -33,27 +33,25 @@ Before getting started, make sure you have the following prerequisites:
 Follow these steps to set up the project:
 
 1. Install dependencies
-2. Clone this repository to your local machine:
-3. Start Docker-Desktop
-
-4. Clone the repository
+2. Start Docker-Desktop
+3. Clone the repository (Windows:use CMD, not powershell)
 
    ```shell
    git clone https://github.com/Altishofer/GethWizard.git
    ```
 
-5. Change into the cloned repository directory:
+4. Change into the cloned repository directory:
 
    ```shell
    cd GethWizard
    ```
 
-6. Create a virtual environment
+5. Create a virtual environment
    ```shell
    python3.11 -m venv venv
    ```
    
-7. Activate the virtual environment
+6. Activate the virtual environment
    - Windows:
      ```shell
      venv\Scripts\activate
@@ -63,19 +61,19 @@ Follow these steps to set up the project:
      source venv/bin/activate
      ```
 
-8. Install project dependencies:
+7. Install project dependencies:
 
    ```shell
-   pip3 install -r requirements.txt
+   pip install -r requirements.txt
    ```
 
-9Start the blockchain:
+8. Start the blockchain:
 
    ```shell
-   python3 blockchain_deployer.py
+   python blockchain_deployer.py
    ```
 
-8. Simulate an external service interacting with the chaincode 🎉
+9. Simulate an external service interacting with the chaincode 🎉
    ```shell
    python3 client.py
    ```

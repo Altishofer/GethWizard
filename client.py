@@ -31,10 +31,10 @@ class Blockchain:
     """
 
     # static ip address of non-validator node with RPC-API
-    __rpc_url = "http://localhost:8545"
+    __rpc_url = "http://172.25.0.104:8545"
 
     # static ip address of oracle with REST-API
-    __oracle_url = "http://localhost:8081"
+    __oracle_url = "http://172.25.0.105:8081"
 
     # static REST header for communication with Oracle
     __rest_header = {

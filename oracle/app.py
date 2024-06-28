@@ -134,7 +134,7 @@ class Oracle:
         """
 
         # open raw solidity file
-        with open("reputation_system.sol", "r") as file:
+        with open("chaincode.sol", "r") as file:
             simple_storage_file = file.read()
 
         # set compiler version
@@ -166,12 +166,12 @@ class Oracle:
             json.dump(compiled_sol, file)
 
         # retrieve bytecode from the compiled contract
-        contract_bytecode = compiled_sol["contracts"]["reputation_system.sol"]["ReputationSystem"]["evm"]["bytecode"][
+        contract_bytecode = compiled_sol["contracts"]["chaincode.sol"]["ReputationSystem"]["evm"]["bytecode"][
             "object"]
 
         # retrieve ABI from compiled contract
         self.__contract_abi = \
-            json.loads(compiled_sol["contracts"]["reputation_system.sol"]["ReputationSystem"]["metadata"])["output"][
+            json.loads(compiled_sol["contracts"]["chaincode.sol"]["ReputationSystem"]["metadata"])["output"][
                 "abi"]
 
         print(f"Oracle: Solidity files compiled and bytecode ready", flush=True)

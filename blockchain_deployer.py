@@ -350,7 +350,6 @@ class BlockchainDeployer:
         final_str = textwrap.indent(f"""{self.__yaml}""", "  ")
 
         self.__yaml = textwrap.dedent(f'''
-                    version: "3.8"
                     name: blockchain
                     services:
                     ''')
@@ -369,8 +368,8 @@ class BlockchainDeployer:
         source = os.path.join(self.__input_dir, "geth", "genesis.json")
         shutil.copy(source, os.path.join(self.__config_dir, "genesis.json"))
 
-        source = os.path.join(self.__input_dir, "chaincode", "reputation_system.sol")
-        shutil.copy(source, os.path.join(self.__config_dir, "reputation_system.sol"))
+        source = os.path.join(self.__input_dir, "chaincode", "chaincode.sol")
+        shutil.copy(source, os.path.join(self.__config_dir, "chaincode.sol"))
 
     def __boot_blockchain(self):
         try:
