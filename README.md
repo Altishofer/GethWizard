@@ -48,35 +48,89 @@ Follow these steps to set up the project:
    cd GethWizard
    ```
 
-6. Install project dependencies:
+6. Create a virtual environment
+   ```shell
+   python3.11 -m venv venv
+   ```
+   
+7. Activate the virtual environment
+   - Windows:
+     ```shell
+     venv\Scripts\activate
+     ```
+   - Linux & MacOS:
+     ```shell
+     source venv/bin/activate
+     ```
+
+8. Install project dependencies:
 
    ```shell
-   pip3 install requirements.txt
+   pip3 install -r requirements.txt
    ```
 
-7. Start the blockchain:
+9Start the blockchain:
 
    ```shell
-   python3 main
+   python3 blockchain_deployer.py
    ```
 
 8. Simulate an external service interacting with the chaincode 🎉
    ```shell
-   python3 external_call_template.py
+   python3 client.py
    ```
+# Interaction & Debugging
 
-## Interaction & Debugging
-- see app.py in /oracle and external_service.py to see detailed structure of requests
-- Metamask
-  - Add new blockchain blockchain on Metamask by url: http://localhost:8545
-  - call http://localhost:8081/faucet with body {"address":<hexAddress>} to load any wallet-address with tokens
-- Remix
-  - Connect Metamask
-  - Set advanced compiler configurations >> EMV version >> Paris
-  - Compile chaincode.sol with compiler: 0.8.22
-  - call http://localhost:8081/getContract to get the address of the deployed contract
-  - provide remix with the contract's address to interact
-- Postman
-  - remote-procedure-calls (rpc) via http://localhost:8545
-  - representational state transfer (rest) via http://localhost:8081
+## Metamask
+- **Add New Blockchain on Metamask**:
+  - Open Metamask and click on the network dropdown.
+  - Select "Custom RPC" and enter the following URL: `http://localhost:8545`.
+  - Click "Save" to add the new blockchain.
+
+- **Load Wallet Address with Tokens**:
+  - Make a POST request to `http://localhost:8081/faucet` with the following JSON body:
+    ```json
+    {
+      "address": "<hexAddress>"
+    }
+    ```
+  - Replace `<hexAddress>` with the actual wallet address.
+
+## Remix
+- **Connect Metamask to Remix**:
+  - Open Remix and connect your Metamask wallet.
+  - Set advanced compiler configurations:
+    - EMV version: Paris
+    - Compiler: 0.8.22
+  - Compile `chaincode.sol`.
+
+- **Get Deployed Contract Address**:
+  - Make a GET request to `http://localhost:8081/contract` to retrieve the address of the deployed contract.
+  - Provide Remix with this contract address to interact with it.
+## Postman
+
+### Ethereum (RPC):
+- Use Postman to make RPC calls via `http://localhost:8545`.
+- Example for getting block count:
+  - URL: http://localhost:8545
+  - Body (raw):
+    ```json
+    {
+      "jsonrpc": "2.0",
+      "method": "eth_getTransactionCount",
+      "id": 280,
+      "params": []
+    }
+    ```
+
+### Oracle (REST):
+- Use Postman to interact with REST endpoints via `http://localhost:8081`.
+- Example for requesting 500 ETH to an address:
+  - URL: http://localhost:8081/faucet
+  - Body (raw):
+    ```json
+    {
+      "address": "<hexAddress>"
+    }
+    ```
 

@@ -4,7 +4,7 @@ ENV address=""
 ENV bootnodeId=""
 ENV bootnodeIp=""
 
-COPY genesis.json ./genesis.json
+COPY ./genesis.json ./genesis.json
 RUN geth init genesis.json
 RUN rm -f ~/.ethereum/geth/nodekey
 
@@ -19,7 +19,5 @@ CMD exec geth \
     --allow-insecure-unlock \
     --http.port=8545 \
     --rpc.txfeecap 0
-
-# --netrestrict="172.25.0.0/24" \
 
 EXPOSE 8545
