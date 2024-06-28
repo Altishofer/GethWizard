@@ -71,7 +71,17 @@ Follow these steps to set up the project:
 
    ```shell
    python blockchain_deployer.py
+   
    ```
+- ✔️ Network chainnet <span style="color:green">created</span>
+- ✔️ Container boot <span style="color:green">started</span>
+- ✔️ Container oracle <span style="color:green">started</span>
+- ✔️ Container rpc <span style="color:green">started</span>
+- ✔️ Container validator_0 <span style="color:green">started</span>
+- ✔️ Container validator_1 <span style="color:green">started</span>
+- ✔️ Container validator_2 <span style="color:green">started</span>
+
+
 
 9. Simulate an external service interacting with the chaincode 🎉
    ```shell
