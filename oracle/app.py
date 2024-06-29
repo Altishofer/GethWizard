@@ -21,9 +21,9 @@ def error_handler(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         try:
-            return func(*args, **kwargs), 200, {'Content-Type': 'application/json'}
+            return func(*args, **kwargs)
         except Exception as e:
-            return jsonify({"error": str(e)}), 500, {'Content-Type': 'application/json'}
+            return jsonify({"error": str(e)}), 400
 
     return wrapper
 
@@ -99,7 +99,7 @@ class Oracle:
         # raise Exception if status is an error one
         request.raise_for_status()
 
-        print(f"ORACLE: RPC node up and running", flush=True)
+        print(f"ORACLE: RPC node up and running")
 
         return True
 
@@ -144,7 +144,7 @@ class Oracle:
         compiled_sol = compile_standard(
             {
                 "language": "Solidity",
-                "sources": {"chain_code.sol": {"content": simple_storage_file}},
+                "sources": {"chaincode.sol": {"content": simple_storage_file}},
                 "settings": {
                     "evmVersion": 'paris',
                     "outputSelection": {
@@ -154,7 +154,7 @@ class Oracle:
                     },
                     "optimizer": {
                         "enabled": True,
-                        "runs": 1000
+                        "runs": 200
                     }
                 },
             },
@@ -174,7 +174,7 @@ class Oracle:
             json.loads(compiled_sol["contracts"]["chaincode.sol"]["ChainCode"]["metadata"])["output"][
                 "abi"]
 
-        print(f"Oracle: Solidity files compiled and bytecode ready", flush=True)
+        print(f"ORACLE: Solidity files compiled and bytecode ready")
 
         # return draft Web3 contract object
         return self.__web3.eth.contract(abi=self.__contract_abi, bytecode=contract_bytecode)
@@ -254,8 +254,9 @@ class Oracle:
         raw_transaction = self.contract_obj.constructor().build_transaction({
             "chainId": self.__web3.eth.chain_id,
             "from": self.acc.address,
-            "value": self.__web3.to_wei("3", "ether"),
+            "value": self.__web3.to_wei("1", "ether"),
             "gasPrice": self.__web3.to_wei(self.__gas_price_per_unit, "gwei"),
+            "gas":self.__web3.to_wei(20, "gwei"),
             "nonce": self.__web3.eth.get_transaction_count(self.acc.address, 'pending')
         })
 
@@ -264,6 +265,8 @@ class Oracle:
 
         # store the address received from the non-validator node
         contract_address = tx_receipt["contractAddress"]
+
+        print(f"BLOCKCHAIN: Chain code deployed at {contract_address}")
 
         # returns contract address for clients to call the chain code directly
         return contract_address
@@ -339,10 +342,10 @@ def blockchain_status():
     """
     Checks if blockchain network already responded being up and ready.
     """
-    if not oracle.ready:
-        return {'message': 'Blockchain does not respond, wait 10'}
-    else:
-        return {'message': 'Blockchain responded'}
+    if oracle.ready:
+        return {"message":"Blockchain is ready."}
+    
+    raise Exception("Blockchain is not responding yet")
 
 
 @app.route("/contract", methods=["GET"])

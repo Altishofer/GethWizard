@@ -72,13 +72,13 @@ Follow these steps to set up the project:
    ```shell
    python blockchain_deployer.py
    ```
-- ✔️ Network chainnet <span style="color:green">created</span>
-- ✔️ Container boot <span style="color:green">started</span>
-- ✔️ Container oracle <span style="color:green">started</span>
-- ✔️ Container rpc <span style="color:green">started</span>
-- ✔️ Container validator_0 <span style="color:green">started</span>
-- ✔️ Container validator_1 <span style="color:green">started</span>
-- ✔️ Container validator_2 <span style="color:green">started</span>
+    - ✅ Network chainnet <span style="color:green">created</span>
+    - ✅ Container boot <span style="color:green">started</span>
+    - ✅ Container oracle <span style="color:green">started</span>
+    - ✅ Container rpc <span style="color:green">started</span>
+    - ✅ Container validator_0 <span style="color:green">started</span>
+    - ✅ Container validator_1 <span style="color:green">started</span>
+    - ✅ Container validator_2 <span style="color:green">started</span>
 
 
 
@@ -86,6 +86,21 @@ Follow these steps to set up the project:
    ```shell
    python3 client.py
    ```
+    
+    ```shell
+                          +----------------------------------+
+    ********************| BLOCKCHAIN INITIALIZATION: START |********************
+                          +----------------------------------+
+      ------------------------- REGISTER WORKING NODE -------------------------
+      CLIENT: Account address: 0x1E9f48d74C7b2aCF5ef5112a480c8BcD61Ed0C5A
+      CLIENT: Web3 is configured for PoA
+      ------------------------- CONNECT TO ORACLE -------------------------
+      ORACLE: Blockchain is ready
+      ORACLE: Received 500 ETH
+      BLOCKCHAIN: Successfully verified balance of 500 ETH
+      ORACLE: Initialized chain code: 0x0Ff11c707cF01A7cdd5A894cf39C1231E6723E9E
+    ```
+
 # Interaction & Debugging
 
 ## Metamask

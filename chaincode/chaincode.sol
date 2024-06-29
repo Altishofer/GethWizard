@@ -1,14 +1,18 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.22;
+pragma solidity 0.8.22;
+// EVM-Version => PARIS, otherwise it will not work properly!
 
 contract ChainCode {
-    string[] public strList; // Persistent storage variable
+
+    string[] public strList;
+
+    constructor() payable {}
 
     function addStr(string memory str) public {
-        strList.push(str); // Modifies storage
+        strList.push(str);
     }
 
-    function getStrList() public view returns (string[] memory) {
-        return strList; // Reads from storage
+    function getStrList() public view returns (string[] memory){
+        return strList;
     }
 }

@@ -31,10 +31,10 @@ class Blockchain:
     """
 
     # static ip address of non-validator node with RPC-API
-    __rpc_url = "http://172.25.0.104:8545"
+    __rpc_url = "http://localhost:8545"
 
     # static ip address of oracle with REST-API
-    __oracle_url = "http://172.25.0.105:8081"
+    __oracle_url = "http://localhost:8081"
 
     # static REST header for communication with Oracle
     __rest_header = {
@@ -51,9 +51,6 @@ class Blockchain:
 
         # public wallet address generated from the private key
         self.__acc_address = str()
-
-        # ETH balance
-        self.__balance = float()
 
         # generate randomized primary key
         self.__acc = self.__create_account()
@@ -74,9 +71,7 @@ class Blockchain:
         # request contract address and header from Oracle
         self.__contract_obj = self.__get_contract_from_oracle()
 
-        print(f"{'-' * 25} CONNECTION TO ETHEREUM AND ORACLE READY {'-' * 25}")
-
-        # TODO: remove before pushing to prod
+        # access all public methods of the deployed chain code
         self.__testing()
 
     @classmethod
@@ -89,7 +84,7 @@ class Blockchain:
     def rest_header(cls) -> Mapping[str, str]:
         return cls.__rest_header
 
-    @retry((Exception, requests.exceptions.HTTPError), tries=20, delay=4)
+    @retry((Exception, requests.exceptions.HTTPError), tries=10, delay=4)
     def __wait_for_blockchain(self) -> None:
         """
         Request state of blockchain from Oracle by periodic calls and sleep
@@ -100,7 +95,7 @@ class Blockchain:
         response = requests.get(
             url=f"{self.__oracle_url}/status",
             headers=self.__rest_header,
-            timeout=20
+            timeout=10
         )
 
         # raise Exception if status is not successful
@@ -235,7 +230,8 @@ class Blockchain:
 
         # Call public 'view' method of chain code
         str_lst = self.__contract_obj.functions.getStrList().call({
-            "from": self.__acc_address
+            "from": self.__acc_address,
+            "gasPrice": self.__web3.to_wei("1", "gwei")
         })
 
         print(f"Blockchain: getStrList => {str_lst}")
@@ -252,7 +248,8 @@ class Blockchain:
                 "chainId": self.__web3.eth.chain_id,
                 "from": self.__acc_address,
                 "nonce": self.__web3.eth.get_transaction_count(
-                    self.__web3.to_checksum_address(self.__acc_address)
+                    self.__web3.to_checksum_address(self.__acc_address),
+                    'pending'
                 ),
                 "gasPrice": self.__web3.to_wei("1", "gwei")
             }
@@ -264,7 +261,7 @@ class Blockchain:
         # convert response from chain code to json
         json_response = self.__web3.to_json(conf)
 
-        print(f"Blockchain: added '{word}' to lst on blockchain")
+        print(f"Blockchain: Stored '{word}' to blockchain")
         return json_response
 
     def __testing(self) -> None:
@@ -273,7 +270,7 @@ class Blockchain:
         :return: None
         """
 
-        for word, iteration in zip(enumerate(["uff", "here", "are", "a", "few", "words"])):
+        for iteration, word in enumerate(["uff", "here", "are", "a", "few", "words"]):
 
             print("*" * 50, f"BLOCKCHAIN TESTING: iteration {iteration}", "*" * 50)
             start = time.time()
