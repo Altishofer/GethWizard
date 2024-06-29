@@ -99,6 +99,17 @@ Follow these steps to set up the project:
       ORACLE: Received 500 ETH
       BLOCKCHAIN: Successfully verified balance of 500 ETH
       ORACLE: Initialized chain code: 0x0Ff11c707cF01A7cdd5A894cf39C1231E6723E9E
+      ************************** BLOCKCHAIN TESTING: iteration 0 **************************
+      Blockchain: Stored 'uff' to blockchain
+      Blockchain: getStrList => ['uff']
+      BLOCKCHAIN: Successfully verified balance of 499.9999333 ETH
+      BLOCKCHAIN: iteration 0 finished after 2.04s
+      ************************** BLOCKCHAIN TESTING: iteration 1 **************************
+      Blockchain: Stored 'here' to blockchain
+      Blockchain: getStrList => ['uff', 'here']
+      BLOCKCHAIN: Successfully verified balance of 499.999883688 ETH
+      BLOCKCHAIN: iteration 1 finished after 2.08s
+
     ```
 
 # Interaction & Debugging
@@ -125,6 +136,7 @@ Follow these steps to set up the project:
     - EMV version: Paris
     - Compiler: 0.8.22
   - Compile `chaincode.sol`.
+  - ALWAYS reset "Activity Tab Data" in MetaMask if the blockchain was redeployed, otherwise the Nonce is wrong
 
 - **Get Deployed Contract Address**:
   - Make a GET request to `http://localhost:8081/contract` to retrieve the address of the deployed contract.
@@ -155,4 +167,3 @@ Follow these steps to set up the project:
       "address": "<hexAddress>"
     }
     ```
-
