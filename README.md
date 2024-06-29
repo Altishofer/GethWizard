@@ -10,7 +10,7 @@ The instructions below will guide you on how to set up and run the project local
 
 ## Features
 
-- Simple generation of docker-compose.yml
+- Simple generation of docker-compose.yml and genesis.json files
 - Deploys by default
   - one bootnode
   - one oracle (rest api)
